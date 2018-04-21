@@ -2,5 +2,5 @@
 
 * oracle tuning
 	 * [Index tuning](oracle_tuning.md)
-	 * [Index tuning](oracle3_second.html)
+	 * [Index tuning](oracle3_second.md)
     
