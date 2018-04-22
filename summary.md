@@ -4,7 +4,8 @@
 	 * [oracle start](oracle-start.md)
 	 * [Restricting and Sorting Data](oracle1_2.md)	 
 	 
-* [oracle 1 whole](oracle1_md.md)
+* oracle 1 (whole)
+	 * [Test](oracle1_md.md)
 
 * oracle tuning (testing)
 	 * [Index tuning](oracle3_md.md)
