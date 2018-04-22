@@ -1,4 +1,4 @@
-# Chapter 2. Restricting and Sorting Data2장 목차
+# Restricting and Sorting Data
 
   1. where 절 사용법
   2. 비교 연산자 사용법
