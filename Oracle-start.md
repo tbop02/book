@@ -92,7 +92,7 @@ Pb 1. 사원이름, 월급, 직업을 출력하시오
 
   select ename, sal, job 
 
-     from emp;
+  from emp;
 
 문제 2. 사원번호, 이름, 월급, 부서번호를 출력하시오
 
