@@ -8,5 +8,4 @@
   * [Index tuning](oracle-tuning-testing/index-tuning.md)
   * [Index tuning2](oracle-tuning-testing/index-tuning2.md)
   * [Index tuning\_markdown\_github](oracle-tuning-testing/index-tuning_markdown_github.md)
-* test
 
