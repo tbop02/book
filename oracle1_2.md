@@ -10,16 +10,18 @@
 
   “where 절은 데이터 검색조건을 기술하는 절”
   예제)
-  select 컬럼
-  from 테이블
-  where 검색조건문
+  	
+    select 컬럼
+  	from 테이블
+  	where 검색조건문
 
 
   사원번호가 7788번인 사원의 사원번호와 이름을 출력하시오
-  3~ select empno, ename
-  1~ from emp
-  2~ where empno= 7788; (검색조건)
-  앞에는 실험순서
+  	
+    3~ select empno, ename
+  	1~ from emp
+  	2~ where empno= 7788; (검색조건)
+  앞에는 실행순서
   
   문제14. 월급이 3000인 사원의 이름과 월급을 출력하시오
     
@@ -62,9 +64,10 @@
 
   
   문제 19. 월급이 1000에서 3000사이가 아닌 사원들의 이름과 월급을 출력하시오
-  select ename, sal
-          from emp
-      where sal not between 1000 and 3000; 
+ 	 
+     select ename, sal
+     from emp
+     where sal not between 1000 and 3000; 
 
 **년도 데이터 형식확인**
 
@@ -74,7 +77,7 @@
     select *
     from nls_session_parameters;
     NLS stands for national language support
-  동양 서양 날짜형식 주의 필요
+  *동양 서양 날짜형식 주의 필요*
   
   문제 20. 81년 12월 11일에 입사한 사원의 이름과 입사일 출력
     
@@ -110,10 +113,11 @@
 ## like 연산자
 
   ex) 이름의 첫번째 철자가 s로 시작하는 사원들의 이름을 출력하시오!
-  select ename
+  	
+    select ename
     from emp
     where ename like ‘S%’;
-  (% : wild card 이 자리에 뭐가 와도 관계 없다. wild card 로 인식되려면 꼭 like 로 써야함)
+  	(% : wild card 이 자리에 뭐가 와도 관계 없다. wild card 로 인식되려면 꼭 like 로 써야함)
 
 
 ## 문자 -  single quotation mark
@@ -148,9 +152,10 @@
     where hiredate like '%81';
   
   아래의 insert문을 실행해서 데이터를 입력하시오
-  insert into emp(empno, ename, sal)
-  values( 1234, ‘A%B’, 3500);
-  commit;
+  	
+    insert into emp(empno, ename, sal)
+  	values( 1234, ‘A%B’, 3500);
+  	commit;
   
   문제 28. 이름의 두번째 철자가 %인 사원을 출력하시오
     
@@ -188,7 +193,8 @@
     from emp
     where job in('SALESMAN' ,'ANALYST');
   
-  문제 33. 직업이 SALESMAN, ANALYST 가 아닌 사원들의 이름과 직업을 출력
+문제 33. 직업이 SALESMAN, ANALYST 가 아닌 사원들의 이름과 직업을 출력
+	
     select ename,job 
     from emp
     where job not in ('SALESMAN','ANALYST');
@@ -300,16 +306,16 @@
 
 **user creation**
 
-  create user scott
+ 	create user scott
     identified by tiger;
   
-  grant dba to scott; 
-  (give dba permission to scott)
+ 	grant dba to scott; 
+  	(give dba permission to scott)
   
-  show user;
-  (confirm user name)
+  	show user;
+  	(confirm user name)
   
-  sqlplus scott/tiger (connect as scott)
+  	sqlplus scott/tiger (connect as scott)
 
 **link** 
 
@@ -333,13 +339,15 @@
 
   priority of logic operator
     ex)
+    
     select ename, sal, job
-      from emp
-      where job=’SALESMAN’
-         or job=’ANALYST’
-        and sal > 1500;
-    which logic operator will be executed first?
-    answer) and
+    from emp
+    where job=’SALESMAN’
+    or job=’ANALYST’
+    and sal > 1500;
+    
+   which logic operator will be executed first?
+   answer) and
 
   problem 55. change the above query as ‘or’ can be executed first.
   → just use parentheses
