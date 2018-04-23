@@ -217,7 +217,7 @@
   
   ## 
 
-## Database connection to team leader using Gate**
+## Database connection to team leader using Gate
 
     192.168.19.3
     유저이름: scott
@@ -256,7 +256,7 @@
     FROM EMP2
     WHERE major NOT LIKE '%컴퓨터%';
 
-## 논리 연산자 (logic operator)**
+## 논리 연산자 (logic operator)
 
 
   and, or, not
@@ -304,7 +304,7 @@
     WHERE address LIKE '서울%' AND telecom like 'sk%;
 
 
-**user creation**
+## user creation
 
  	create user scott
     identified by tiger;
@@ -317,7 +317,7 @@
   
   	sqlplus scott/tiger (connect as scott)
 
-**link** 
+## link
 
     create database link our_class_link
     connect to scott
