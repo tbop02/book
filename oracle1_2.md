@@ -6,7 +6,7 @@
   4. 논리 연산자 사용법
   5. 연산자 우선순위
 
-**where 절 사용법**
+## where 절 사용법
 
   “where 절은 데이터 검색조건을 기술하는 절”
   예제)
@@ -58,7 +58,7 @@
     where sal between 1000 and 3000;
 
 
-**between and 연산자**
+## between and 연산자
 
   
   문제 19. 월급이 1000에서 3000사이가 아닌 사원들의 이름과 월급을 출력하시오
@@ -100,14 +100,14 @@
     from emp
     where deptno !=30;
 
-**기타비교연산자 4가지**
+## 기타비교연산자 4가지
 
   1. between and
   2. like
   3. in
   4. is null
 
-**like 연산자**
+## like 연산자
 
   ex) 이름의 첫번째 철자가 s로 시작하는 사원들의 이름을 출력하시오!
   select ename
@@ -116,7 +116,7 @@
   (% : wild card 이 자리에 뭐가 와도 관계 없다. wild card 로 인식되려면 꼭 like 로 써야함)
 
 
-**문자 -  single quotation mark**
+## 문자 -  single quotation mark
 숫자는 필요 없음
 
 
@@ -170,7 +170,7 @@
     from emp
     where ename not like 'S%';
 
-**in 연산자**
+## in 연산자
 
   문제 31.  사원번호가 7788,7902, 7369 번인 사원들의 사원번호와 이름을 출력하시오
     
@@ -210,7 +210,7 @@
   
   ## 
 
-**Database connection to team leader using Gate**
+## Database connection to team leader using Gate**
 
     192.168.19.3
     유저이름: scott
@@ -249,7 +249,7 @@
     FROM EMP2
     WHERE major NOT LIKE '%컴퓨터%';
 
-**논리 연산자 (logic operator)**
+## 논리 연산자 (logic operator)**
 
 
   and, or, not
@@ -327,7 +327,7 @@
       WHERE major NOT LIKE '%컴퓨터%'
       ORDER BY age DESC;
 
-**Priority of operator**
+## Priority of operator
 
   priority of logic operator
     ex)
