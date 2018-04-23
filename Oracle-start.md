@@ -1,10 +1,13 @@
 # Oracle start
 
-**Oracle download**
 
-- otn.oracle.com
+## Oracle download
 
-**Oracle database connection**
+**otn.oracle.com**
+
+
+## Oracle database connection
+
 : sqlplus sys/oracle as sysdba
 
 sys : user name
@@ -12,11 +15,15 @@ oracle : password
 as sysdba : administrator connection
 sqlplus : SQL plus 쓴다
 
-**Current user**
+
+## Current user
+
 현재 유저 보기 (show current user)
 : show user
 
-**Table creation example**
+
+## Table creation example
+
 http://cafe.daum.net/oracleoracle/SRAm/1
 
 alter session set nls_Date_format='RR/MM/DD';
@@ -60,11 +67,15 @@ INSERT INTO EMP VALUES (7934,'MILLER','CLERK',7782,'82-01-11',1300,NULL,10);
 
 commit;
 
-**Query example**
+
+## Query example
+
 sql> select ename, sal from emp;
 쿼리 명령어들
 
-**Column information**
+
+## Column information
+
 sql> desc emp
 desc: describe 의 약자
 
@@ -101,10 +112,14 @@ Pb 1. 사원이름, 월급, 직업을 출력하시오
   from emp
   order by sal desc;
 
-**한페이지에 나오는 크기 변경**
+
+## 한페이지에 나오는 크기 변경
+
 set pages 400
 
-**order by 절**
+
+## order by 절
+
 “데이터 정렬하는 절”
 
   
@@ -121,10 +136,9 @@ set pages 400
     1. asc → 낮은값에서 높은값
     2. desc → 높은값에서 낮은값 순으로 정렬
 
-**SQL 책** 
-http://192.168.19.5 (오라클 정규교재) 외부유출금지
 
-**컬럼과 로우 설명**
+## 컬럼과 로우 설명
+
 테이블은 데이터를 저장하는 논리적 저장소 이고 컬럼(columns)과 로우(row)로 구성되어 있다
 
   
@@ -141,19 +155,21 @@ select empno. ename, job, sal, comm from emp;
 select * 
 from emp;
 
-**예쁘게 테이블을 출력하는 방법**
 
+## 예쁘게 테이블을 출력하는 방법
   SQL> show lines ← 테이블 결과 출력 가로 사이즈
   SQL> set lines 300
   SQL> set pages 400
 
 
-**중복 데이터를 제거하는 키워드**
 
+## 중복 데이터를 제거하는 키워드
   select distinct job 
   from emp;
 
-**SQL GATE 설치**
+
+## SQL GATE 설치
+
 install in cmd by administrator
 
 select *
@@ -163,7 +179,9 @@ from emp; (ctrl + enter)
 select distinct deptno f
 rom emp;
 
-**연결연산자** 
+
+## 연결연산자 
+
 → ||
 ex) select ename || ‘의 직업은’ || job 
 from emp;  **(그대로 복사x)**
@@ -189,8 +207,8 @@ select ename as "이름", sal as "월급", job as "직업" from emp order by job
   아래와 같이 출력하는데 최근에 입사한 사원부터 출력되게 하시오
   select ename || '의 입사일은' || hiredate || '입니다' as "사원정보" from emp order by hiredate desc;
 
-**Null 값의 의미?**
 
+## Null 값의 의미?
 1. 데이터가 없는 상태
 2. 알수 없는 값 (unknown)
 
@@ -213,7 +231,9 @@ select ename, sal, nvl(comm,0)
 
   from emp;
 
-**NVL Function(null value logic)**
+
+## NVL Function(null value logic)
+
 Null value logic 
 ex) nvl(column, 0) : null 대신에 0을 출력
 
@@ -222,8 +242,8 @@ select ename, sal, comm , sal+nvl(comm,0)
 
   from emp;
 
-**연산자의 종류 3가지**
 
+## 연산자의 종류 3가지
 - 산술 연산자 : */ + -
 - 비교 연산자 : >, <, >=, <=, =, <>, !=, ^= (같지 않다 3가지)
 - 논리 연산자:  and, or, not
