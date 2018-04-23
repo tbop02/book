@@ -133,7 +133,7 @@
     where ename like ‘_M%’;
   
   ! like 연산자를 사용할때 쓰는 키워드 
-  - _ : 이자리에 어떤게 와도 관계없는데 자릿수는 한자리
+  '-' _ : 이자리에 어떤게 와도 관계없는데 자릿수는 한자리
   
   문제 26. 이름의 세번째 철자가 L인 사원이름 출력
     
@@ -201,10 +201,11 @@
   
   pb. 35. print out job, commission of employees whose job is SALESMAN and whose commission is not null and sort it in descending order, and make 
   문제 35. comm이 null 아니고 직업이 SALESMAN인 사원들의 이름과 월급과 직업과 커미션을 출력하는데 커미션이 높은 사원부터 출력하고 컬럼명을 이름, 월급, 직업, 커미션 한글로 출력되게 하시오
-   SELECT ename as "이름", sal as "월급", comm as "커미션"
-   from emp
-   where comm is not null and job='SALESMAN'
-   order by comm desc;  
+   
+    SELECT ename as "이름", sal as "월급", comm as "커미션"
+    from emp
+    where comm is not null and job='SALESMAN'
+    order by comm desc;  
   
   
   
@@ -291,7 +292,8 @@
   문제 43. print out name, address and telecom company of students whose city is seoul and whose telecom company is SK.
   주소가 서울이면서 통신사가 sk인 학생들의 이름과 주소와 통신사를 출력하시오.
   Problem 43. print  name, address and telecom 
-  SELECT ename,address, telecom
+    
+    SELECT ename,address, telecom
     FROM EMP2
     WHERE address LIKE '서울%' AND telecom like 'sk%;
 
