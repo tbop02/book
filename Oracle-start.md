@@ -5,8 +5,6 @@
 
 **otn.oracle.com**
 
-# test
-
 ## Oracle database connection
 
 : sqlplus sys/oracle as sysdba
