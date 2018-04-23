@@ -212,18 +212,17 @@
 
 **Database connection to team leader using Gate**
 
+    192.168.19.3
+    유저이름: scott
+    패스워드: tiger
+    서비스이름: xe
+    접속모드: default
 
-  192.168.19.3
-  유저이름: scott
-  패스워드: tiger
-  서비스이름: xe
-  접속모드: default
-  
-  ALTER SESSION SET nls_date_format ='RRRR/MM/DD';
-  INSERT INTO EMP2
-          VALUES(5,'정호진',32,'1987/09/22','물리학','tbop02@gmail.com','010-2985-9834','서울시 광진구 화양동','LGT');
-  COMMIT;
-  
+    ALTER SESSION SET nls_date_format ='RRRR/MM/DD';
+    INSERT INTO EMP2
+            VALUES(5,'정호진',32,'1987/09/22','물리학','tbop02@gmail.com','010-2985-9834','서울시 광진구 화양동','LGT');
+    COMMIT;
+
   문제 36. 이름과 전공과 나이를 출력하는데 나이가 높은 학생부터
     
     SELECT ename,major, age
@@ -312,14 +311,14 @@
 
 **link** 
 
-  create database link our_class_link
-  connect to scott
-  identified by tiger
-  using ’192.168.19.3:1521/xe’;
-  
-  create table emp2
-  as
-  select * from emp2@our_class_link;
+    create database link our_class_link
+    connect to scott
+    identified by tiger
+    using ’192.168.19.3:1521/xe’;
+
+    create table emp2
+    as
+    select * from emp2@our_class_link;
   
   Problem 44. print name, age and major of students whose major is not related to computer, and sort by age in descending order and change column name to 이름, 나이 and 전공.
       
@@ -331,15 +330,15 @@
 **Priority of operator**
 
   priority of logic operator
-  ex)
-  select ename, sal, job
-    from emp
-    where job=’SALESMAN’
-       or job=’ANALYST’
-      and sal > 1500;
-  which logic operator will be executed first?
-  answer) and
-  
+    ex)
+    select ename, sal, job
+      from emp
+      where job=’SALESMAN’
+         or job=’ANALYST’
+        and sal > 1500;
+    which logic operator will be executed first?
+    answer) and
+
   problem 55. change the above query as ‘or’ can be executed first.
   → just use parentheses
 
