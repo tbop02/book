@@ -35,7 +35,7 @@ Type of oracle join
 
 
 
-## Hash join
+# Hash join
 
 
     초대용량 조인시 사용
@@ -84,16 +84,16 @@ Pb 44. 아래의 SQL의 조인순서가 어떻게 되겠는가?
 
  
 
-### 조인 튜닝시에 가장 중요한 2가지
+# 조인 튜닝시에 가장 중요한 2가지
 
 
 
 
-#### 조인순서
+### 조인순서
 -   Ordered : from 절에서 기술한 테이블 순서데로 조인
 -   Leading : leading 힌트 안에쓴 테이블 순서대로 조인
 
-#### 조인 방법
+### 조인 방법
 -   Use_nl : nested loop 조인으로 유도
 -   Use_hash : hash 조인으로 유도
 -   Use_merge : sort merge 조인으로 조인해라
@@ -110,7 +110,7 @@ Pb 45. ordered 힌트를 이용해서 아래 SQL의 조인순서를 emp -&gt; de
   
 
 Nested loop join
-----------------
+================
 
 * 테이블을 조인할 때  한건씩 순차적으로 반복해서 조인 하는 조인방법 (조인 되는 건수가 적을 때 유리한 조인 방법)
 
@@ -514,7 +514,7 @@ GROUP BY p.prod_name, t.calendar_year;
   
 
 What is Hash Join
-----------------
+================
 
     SELECT /*+ leading(d e) use_hash(e)*/ E.NAME, d.loc
     FROM EMP e, DEPT d
@@ -594,7 +594,7 @@ Pb 66. 해쉬 조인순서를 아래와 같이 만드시오
 
 
 
-### 해쉬테이블과 prob 테이블
+## 해쉬테이블과 prob 테이블
 
   1.  해쉬 테이블 : 메모리로 올라가는 테이블
 
