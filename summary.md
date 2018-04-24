@@ -1,8 +1,8 @@
 #	summary
 
 * oracle 1
-	 * [oracle start](oracle-start.md)
-	 * [Restricting and Sorting Data](oracle1_2.md)	 
+	 * [oracle start](./oracl 1/eoracle-start.md)
+	 * [Restricting and Sorting Data](./oracl 1/oracle1_2.md)	 
 	 
 * oracle tuning (testing)
 	 * [Index tuning](oracle3_md.md)
