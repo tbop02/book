@@ -116,7 +116,16 @@ Pb 85. 아래의 SQL의 실행계획을 dept가 먼저 드라이빙 되면서 �
 
 ![1524556621091](subquery_tunning_image/1524556621091.png)
 
- 
+
+
+    select ename, sal
+    from emp
+    where deptno in(
+        select /* swap_join_inputs(d) */ deptno
+        from dept d
+        where loc='DALLAS')
+
+
 
 
 
