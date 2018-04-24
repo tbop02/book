@@ -35,6 +35,8 @@ iii. 서브쿼리 문장 튜닝
 5. Index fast full scan
 6. Index merge scan
 7. Index bitmap merge scan
+
+
 8. Index join
 
 >
