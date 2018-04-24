@@ -68,40 +68,40 @@ Pb 44. 아래의 SQL의 조인순서가 어떻게 되겠는가?
 
  
 
-> <img src="tuning_image/media/image1.png" alt="Machine generated alternative text: Oper a bon SELECT STATEMENT optimizer Mode HASH JOIN TABLE ACCESS FULL TABLE ACCESS FULL Object Name -ALL ROWS SCOTT. DEPT SCOTT. EMP B ytes Cost " width="528" height="103" />
->
->  
->
-> <img src="tuning_image/media/image2.png" alt="SELECT e.Ename e. SAL DEPT d FROM EMP d. Loc WHERE e.DEPTN0 = d.DEPTN0; SELECT ename, Sal, job, deptno emp; SELECT DEPTNO * DEPT; ENAME SCOTT SAL JOB 5000 PRESIDENT 2850 MANAGER 2450 MANAGER 2975 MANAGER 1250 SALESMAN 3400 SALESMAN 1500 SALESMAN 950 CLERK 1250 SALESMAN 3000 ANALYST 800 CLERK 3000 ANALYST 1100 CLERK 1300 CLERK DNAME 10 ACCOUNTING 20 RESEARCH 30 SALES 40 OPERATIONS NEW YORK DALLAS CHICAGO aosTON 8750 25000 JOIN 0 14 EMP* JOIN El-ch. DEPTS JOIN" width="522" height="363" />
->
->  
->
-> <img src="tuning_image/media/image3.png" alt="SELECT loc, d name , deptno F RCA dept; J • DEPTNO SELECT deptno , ename, Sal, job emp; NEW YORK ACCOUNTING DALLAS CHICAGO aosTON RESEARCH SALES OPERATIONS full scanOl 01+01 . ENAME 20 JONES 30 MARTIN 30 JAMES 30 WARD 20 SCOTT 20 ADAMS 10 MILLER SAL JOB 5000 PRESIDENT 2850 MANAGER 2450 MANAGER 2975 MANAGER 1250 SALESMAN 3400 SALESMAN 1500 SALESMAN 950 CLERK 1250 SALESMAN 3000 ANALYST 800 CLERK 3000 ANALYST 1100 CLERK 1300 CLERK" width="525" height="306" />
->
-> (From 지우)
+ <img src="tuning_image/image1.png" alt="Machine generated alternative text: Oper a bon SELECT STATEMENT optimizer Mode HASH JOIN TABLE ACCESS FULL TABLE ACCESS FULL Object Name -ALL ROWS SCOTT. DEPT SCOTT. EMP B ytes Cost " width="528" height="103" />
+
+  
+
+ <img src="tuning_image/image2.png" alt="SELECT e.Ename e. SAL DEPT d FROM EMP d. Loc WHERE e.DEPTN0 = d.DEPTN0; SELECT ename, Sal, job, deptno emp; SELECT DEPTNO * DEPT; ENAME SCOTT SAL JOB 5000 PRESIDENT 2850 MANAGER 2450 MANAGER 2975 MANAGER 1250 SALESMAN 3400 SALESMAN 1500 SALESMAN 950 CLERK 1250 SALESMAN 3000 ANALYST 800 CLERK 3000 ANALYST 1100 CLERK 1300 CLERK DNAME 10 ACCOUNTING 20 RESEARCH 30 SALES 40 OPERATIONS NEW YORK DALLAS CHICAGO aosTON 8750 25000 JOIN 0 14 EMP* JOIN El-ch. DEPTS JOIN" width="522" height="363" />
+
+  
+
+ <img src="tuning_image/image3.png" alt="SELECT loc, d name , deptno F RCA dept; J • DEPTNO SELECT deptno , ename, Sal, job emp; NEW YORK ACCOUNTING DALLAS CHICAGO aosTON RESEARCH SALES OPERATIONS full scanOl 01+01 . ENAME 20 JONES 30 MARTIN 30 JAMES 30 WARD 20 SCOTT 20 ADAMS 10 MILLER SAL JOB 5000 PRESIDENT 2850 MANAGER 2450 MANAGER 2975 MANAGER 1250 SALESMAN 3400 SALESMAN 1500 SALESMAN 950 CLERK 1250 SALESMAN 3000 ANALYST 800 CLERK 3000 ANALYST 1100 CLERK 1300 CLERK" width="525" height="306" />
+
+ (From 지우)
 
  
 
  
 
-## 조인 튜닝시에 가장 중요한 2가지
+### 조인 튜닝시에 가장 중요한 2가지
 
 
 
 
-### 조인순서
+#### 조인순서
 -   Ordered : from 절에서 기술한 테이블 순서데로 조인
 -   Leading : leading 힌트 안에쓴 테이블 순서대로 조인
 
-### 조인 방법
--   Use\_nl : nested loop 조인으로 유도
--   Use\_hash : hash 조인으로 유도
--   Use\_merge : sort merge 조인으로 조인해라
+#### 조인 방법
+-   Use_nl : nested loop 조인으로 유도
+-   Use_hash : hash 조인으로 유도
+-   Use_merge : sort merge 조인으로 조인해라
 
 
 Pb 45. ordered 힌트를 이용해서 아래 SQL의 조인순서를 emp -&gt; dept 순으로 조인되게 하시오
 
-    SELECT /\*+ ordered\*/e.ename,e.sal,d.loc
+    SELECT /*+ ordered*/e.ename,e.sal,d.loc
     fROM EMP e, DEPT d
     Where e.deptno = d.deptno;
 
@@ -132,7 +132,7 @@ Pb 46. 아래의 SQL을 아래의 방법으로 조인하시오
     Where e.deptno = d.deptno;
     
     Answer)
-    SELECT \*+ ordered use_nl(d) */
+    SELECT *+ ordered use_nl(d) */
     e.ename, e.sal, d.loc
     FROM EMP e, DEPT d
     WHERE e.deptno=d.deptno;
@@ -197,7 +197,7 @@ Pb 48. 아래의 조인 SQL에 적절한 힌트를 주시오
 
 Pb 49. SK 텔레콤 통신사인 학생들의 이름과 주소, 나이, 통신사, 통신사 월 금액을 출력
 
-(emp2와 telecom\_price 조인) 
+(emp2와 telecom_price 조인) 
 
 ``` 
 SELECT /* + leading (t e) use_nl(e)*/ename,address, t_price
@@ -208,7 +208,7 @@ and e.telecom='sk';
 
 
 
-Pb 50. Price 테이블과 Market\_code를 조인해서 a\_name, a\_price, m\_type\_name을 출력 하시오
+Pb 50. Price 테이블과 Market_code를 조인해서 a_name, a_price, m_type_name을 출력 하시오
 
 ```
 SELECT p.a_name,p.a_price, m.m_type_name
@@ -279,7 +279,7 @@ WHERE e.deptno=d.deptno AND e.ename='SCOTT';
 
 
 
-Pb 52. Price 테이블과 gu\_code를 조인 해서 a\_name, a\_price, m\_gu\_name을 출력하는데 적절한 조인 힌트를 줘서 작성하시오.
+Pb 52. Price 테이블과 gu_code를 조인 해서 a_name, a_price, m_gu_name을 출력하는데 적절한 조인 힌트를 줘서 작성하시오.
 
 ```
 SELECT /*+ leading (g p) use_nl(p)*/p.a_name,p.a_price,g.m_gu_name
@@ -319,7 +319,7 @@ WHERE e.deptno=d.deptno AND e.sal BETWEEN g.losal AND g.hisal;
 
 
 
-Pb 56. (3개 테이블 조인) Price 테이블, gu\_code테이블, market\_code테이블 3개의 테이블을 조인후 a\_name, a\_prcie, m\_gu\_name, m\_type\_name 출력하는데 적절한 조인 순서와 힌트를 주고 실행하시오.
+Pb 56. (3개 테이블 조인) Price 테이블, gu_code테이블, market_code테이블 3개의 테이블을 조인후 a_name, a_prcie, m_gu_name, m_type_name 출력하는데 적절한 조인 순서와 힌트를 주고 실행하시오.
 
 ```
 SELECT /*+ leading(m g p) use_nl(g) use_nl(p) */ p.a_name,p.a_price,g.m_gu_name,m.m_type_name
@@ -361,8 +361,6 @@ AND t.week_ending_day_id=1581
 GROUP BY t.calendar_year;
 ```
 
-
-
 ```
 After)
 SELECT /*+ leading(s t) use_nl(t) */
@@ -375,35 +373,26 @@ GROUP BY t.calendar_year;
 
 
 
-
-
 Pb 59. 아래의 SQL을 튜닝하시오
+```
+ Before)
+ SELECT /*+leading(s c) use_nl(c) */ COUNT(*)
+ FROM sales200 s,customers200 c
+ WHERE s.cust_id = c.cust_id
+ AND c.country_id=52790
+ AND s.time_id BETWEEN TO_DATE('1999/01/01','RRRR/MM/DD') AND O_DATE('1999/12/31','RRRR/MM/DD');
+```
 
-> Before)
->
-> SELECT /\*+leading(s c) use\_nl(c) \*/ COUNT(\*)
->
-> FROM sales200 s,customers200 c
->
-> WHERE s.cust\_id = c.cust\_id
->
-> AND c.country\_id=52790
->
-> AND s.time\_id BETWEEN TO\_DATE('1999/01/01','RRRR/MM/DD') AND TO\_DATE('1999/12/31','RRRR/MM/DD');
->
-> After)
->
-> SELECT /\*+leading(c s) use\_nl(s) \*/ COUNT(\*)
->
-> FROM sales200 s,customers200 c
->
-> WHERE s.cust\_id = c.cust\_id
->
-> AND c.country\_id=52790
->
-> AND s.time\_id BETWEEN TO\_DATE('1999/01/01','RRRR/MM/DD') AND TO\_DATE('1999/12/31','RRRR/MM/DD');
->
->  
+```
+ After)
+ SELECT /*+leading(c s) use_nl(s) */ COUNT(*)
+ FROM sales200 s,customers200 c
+ WHERE s.cust_id = c.cust_id
+ AND c.country_id=52790
+ AND s.time_id BETWEEN TO_DATE('1999/01/01','RRRR/MM/DD') AND TO_DATE('1999/12/31','RRRR/MM/DD');
+```
+
+
 
 Pb 60. 위의 쿼리를 잘 실행하기 위해 인덱스 생성
 
@@ -412,136 +401,106 @@ Pb 60. 위의 쿼리를 잘 실행하기 위해 인덱스 생성
 
 Pb 61. 아래의 SQL을 nested loop 조인으로 수행하면서 좋은 성능을 보이겠금 인덱스를 생성하시오.
 
-> SELECT /\*+ leading(t s) use\_nl(s) \*/
->
-> t.calendar\_year, SUM(s.amount\_sold)
->
-> FROM sales200 s, times200 t
->
-> WHERE s.time\_id = t.time\_id
->
-> AND t.week\_ending\_day\_id=1581
->
-> GROUP BY t.calendar\_year;
->
-> <img src="tuning_image/media/image13.png" alt="Pr oper bes recursive calls db block gets consistent gets 31142 " width="210" height="69" />
->
->  
->
->  
->
-> CREATE INDEX sales200\_time\_id ON sales200(time\_id);
->
-> CREATE INDEX times200\_time\_id ON times200(time\_id);
->
-> CREATE INDEX times200\_week\_ending\_day\_id on times200(week\_ending\_day\_id);
->
->  
->
-> SELECT /\*+ leading(t s) use\_nl(s) \*/
->
-> t.calendar\_year, SUM(s.amount\_sold)
->
-> FROM sales200 s, times200 t
->
-> WHERE s.time\_id = t.time\_id
->
-> AND t.week\_ending\_day\_id=1581
->
-> GROUP BY t.calendar\_year;
->
->  
->
->  
->
-> <img src="tuning_image/media/image14.png" alt="Pr oper bes I recursive calls 2 db block gets 3 consistent gets " width="207" height="72" />
->
->  
+```
+SELECT /*+ leading(t s) use_nl(s) */
+t.calendar_year, SUM(s.amount_sold)
+FROM sales200 s, times200 t
+WHERE s.time_id = t.time_id
+AND t.week_ending_day_id=1581
+GROUP BY t.calendar_year;
+
+```
+
+
+
+<img src="tuning_image/media/image13.png" alt="Pr oper bes recursive calls db block gets consistent gets 31142 " width="210" height="69" />
+
+```  
+CREATE INDEX sales200_time_id ON sales200(time_id); 
+CREATE INDEX times200_time_id ON times200(time_id);
+CREATE INDEX times200_week_ending_day_id on times200(week_ending_day_id);
+```
+
+```  
+SELECT /*+ leading(t s) use_nl(s) */
+t.calendar_year, SUM(s.amount_sold)
+FROM sales200 s, times200 t
+WHERE s.time_id = t.time_id
+AND t.week_ending_day_id=1581
+GROUP BY t.calendar_year;
+```
+
+  
+
+  
+
+  
+
+ <img src="tuning_image/media/image14.png" alt="Pr oper bes I recursive calls 2 db block gets 3 consistent gets " width="207" height="72" />
+
+  
 
 Pb 62. 아래의 SQL을 튜닝하시오.
 
-> Before)
->
-> SELECT /\*+ leading(s t p) use\_nl(t) use\_nl(p) \*/p.prod\_name, t.calendar\_year,
->
-> SUM(s.amount\_sold)
->
-> FROM sales200 s, times200 t, products200 p
->
-> WHERE s.time\_id = t.time\_id
->
-> AND s.prod\_id = p.prod\_id
->
-> AND t.calendar\_year IN (2000,2001)
->
-> AND p.prod\_name LIKE 'Deluxe%'
->
-> GROUP BY p.prod\_name, t.calendar\_year;
->
-> <img src="tuning_image/media/image15.png" alt="PROD _NAME I Deluxe Mouse 2 Deluxe Mouse CALENDAR_YEAR 2001 2000 14233442 " width="377" height="60" />
->
->  
->
-> After)
->
->  
->
-> CREATE INDEX sales200\_prod\_id ON sales200(prod\_id);
->
-> CREATE INDEX products200\_time\_id ON products200(prod\_id);
->
-> CREATE INDEX products200\_prod\_name ON products200(prod\_name);
->
-> CREATE INDEX times200\_calendar\_year ON times200(calendar\_year);
->
->  
->
-> SELECT /\*+ leading(p s t) use\_nl(s) use\_nl(t) \*/p.prod\_name, t.calendar\_year,
->
-> SUM(s.amount\_sold)
->
-> FROM sales200 s, times200 t, products200 p
->
-> WHERE s.time\_id = t.time\_id
->
-> AND s.prod\_id = p.prod\_id
->
-> AND t.calendar\_year IN (2000,2001)
->
-> AND p.prod\_name LIKE 'Deluxe%'
->
-> GROUP BY p.prod\_name, t.calendar\_year;
->
->  
->
-> <img src="tuning_image/media/image16.png" alt="Pr oper bes I recursive calls 2 db block gets 3 consistent gets " width="213" height="72" />
->
->  
+Before)
+
+```
+ SELECT /*+ leading(s t p) use_nl(t) use_nl(p) */p.prod_name, t.calendar_year,
+ SUM(s.amount_sold)
+ FROM sales200 s, times200 t, products200 p
+ WHERE s.time_id = t.time_id
+ AND s.prod_id = p.prod_id
+ AND t.calendar_year IN (2000,2001)
+ AND p.prod_name LIKE 'Deluxe%'
+ GROUP BY p.prod_name, t.calendar_year;
+```
+
+ <img src="tuning_image/media/image15.png" alt="PROD _NAME I Deluxe Mouse 2 Deluxe Mouse CALENDAR_YEAR 2001 2000 14233442 " width="377" height="60" />
+
+  
+
+ After)
+
+  ```
+ CREATE INDEX sales200_prod_id ON sales200(prod_id);
+ CREATE INDEX products200_time_id ON products200(prod_id);
+ CREATE INDEX products200_prod_name ON products200(prod_name);
+ CREATE INDEX times200_calendar_year ON times200(calendar_year);
+  ```
+
+  ```
+ SELECT /*+ leading(p s t) use_nl(s) use_nl(t) */p.prod_name, t.calendar_year,
+ SUM(s.amount_sold)
+ FROM sales200 s, times200 t, products200 p
+ WHERE s.time_id = t.time_id
+ AND s.prod_id = p.prod_id
+ AND t.calendar_year IN (2000,2001)
+ AND p.prod_name LIKE 'Deluxe%'
+ GROUP BY p.prod_name, t.calendar_year;
+  ```
+
+ <img src="tuning_image/media/image16.png" alt="Pr oper bes I recursive calls 2 db block gets 3 consistent gets " width="213" height="72" />
+
+  
 
 Pb 63. 아래의 SQL을 해쉬조인으로 수행하시오
 
->
-> SELECT /\*+ leading(p s t) use\_nl(s) use\_nl(t) \*/p.prod\_name, t.calendar\_year,
->
-> SUM(s.amount\_sold)
->
-> FROM sales200 s, times200 t, products200 p
->
-> WHERE s.time\_id = t.time\_id
->
-> AND s.prod\_id = p.prod\_id
->
-> AND t.calendar\_year IN (2000,2001)
->
-> AND p.prod\_name LIKE 'Deluxe%'
->
-> GROUP BY p.prod\_name, t.calendar\_year;
->
->  
->
-> After)
+before)
 
-    SELECT /*+ leading(p s t) use_hash(s) use\_hash(t) */p.prod_name, t.calendar_year,
+```
+SELECT /*+ leading(p s t) use_nl(s) use_nl(t) */p.prod_name, t.calendar_year,
+SUM(s.amount_sold)
+FROM sales200 s, times200 t, products200 p
+WHERE s.time_id = t.time_id
+AND s.prod_id = p.prod_id
+AND t.calendar_year IN (2000,2001)
+AND p.prod_name LIKE 'Deluxe%'
+GROUP BY p.prod_name, t.calendar_year;
+```
+
+ After)
+
+    SELECT /*+ leading(p s t) use_hash(s) use_hash(t) */p.prod_name, t.calendar_year,
     SUM(s.amount_sold)
     FROM sales200 s, times200 t, products200 p
     WHERE s.time_id = t.time_id
@@ -554,7 +513,7 @@ Pb 63. 아래의 SQL을 해쉬조인으로 수행하시오
 
   
 
-Hash Join
+What is Hash Join
 ----------------
 
     SELECT /*+ leading(d e) use_hash(e)*/ E.NAME, d.loc
@@ -573,90 +532,86 @@ Hash Join
 
 Pb 64. 아래의 SQL을 hash join으로 수행하는데 times 테이블을 해쉬 테이블로 구성 하는것과 sales테이블을 해쉬 테이블로 구성하는것과의 성능차이를 확인하시오
 
-    SELECT /*+ leading(t s) use\_hash(s) */
+    SELECT /*+ leading(t s) use_hash(s) */
     t.calendar_year, SUM(s.amount_sold)
     FROM sales200 s, times200 t
     WHERE s.time_id = t.time_id
     AND t.week_ending_day_id = 1581
     GROUP BY t.CALENDAR_YEAR;
->
-> <img src="tuning_image/media/image19.png" alt="4 SELECT leading(t s) use_hash(s) t. calendar_year. SUM(s . amount_sold) FROM sales2ØØ s. times2ØØ t WHERE s.time_id - t. time _ id AND t . = 1581 GROUP BY t .CRLENDRR_YERR; ALENDRR_YERR .RMOUNT_SOLD) 1998 438660.26 " width="357" height="192" />
->
->  
->
->   SELECT /*+ leading(s t) use_hash(t) */
->   t.calendar_year, SUM(s.amount_sold)
->   FROM sales200 s, times200 t
->   WHERE s.time_id = t.time_id
->   AND t.week_ending_day_id = 1581
->   GROUP BY t.CALENDAR_YEAR;
->
-> <img src="tuning_image/media/image20.png" alt="4 SELECT leading(s t) use_hash(t) t. calendar_year. SUM(s . amount_sold) FROM sales2ØØ s. times2ØØ t WHERE s.time_id - t. time _ id AND t . = 1581 GROUP BY t .CRLENDRR_YERR; ALENDRR_YERR .RMOUNT_SOLD) 1998 438660.26 " width="351" height="195" />
->
-> Times200을 올리면 조금더 걸린다
->
 
-Pb 65. 아래의 SQL을 조인 순서와 조인방버을 아래와 같이 설정하시오
+<img src="tuning_image/media/image19.png" alt="4 SELECT leading(t s) use_hash(s) t. calendar_year. SUM(s . amount_sold) FROM sales2ØØ s. times2ØØ t WHERE s.time_id - t. time _ id AND t . = 1581 GROUP BY t .CRLENDRR_YERR; ALENDRR_YERR .RMOUNT_SOLD) 1998 438660.26 " width="357" height="192" />
 
-조인순서 times-&gt; sales -&gt; products
+
+```
+SELECT /*+ leading(s t) use_hash(t) */
+t.calendar_year, SUM(s.amount_sold)
+FROM sales200 s, times200 t
+WHERE s.time_id = t.time_id
+AND t.week_ending_day_id = 1581
+GROUP BY t.CALENDAR_YEAR;
+```
+
+<img src="tuning_image/media/image20.png" alt="4 SELECT leading(s t) use_hash(t) t. calendar_year. SUM(s . amount_sold) FROM sales2ØØ s. times2ØØ t WHERE s.time_id - t. time _ id AND t . = 1581 GROUP BY t .CRLENDRR_YERR; ALENDRR_YERR .RMOUNT_SOLD) 1998 438660.26 " width="351" height="195" />
+
+**Times200을 올리면 조금더 걸린다**
+
+
+
+
+Pb 65. 아래의 SQL을 조인 순서와 조인방버을 아래와 같이 설정하시오(조인순서 times-&gt; sales -&gt; products)
 
 <img src="tuning_image/media/image21.png" alt="SELECT STATEMENT optimizer Mode HASH GROUP BY HASH JOIN TABLE ACCESS FULL HASH JOIN TABLE ACCESS FULL TABLE ACCESS FULL SCOTT. PRODUCTS 200 SCOTT. scon.SALES200 875 K 875 K 1M 47 M 29 M 1278 1267 1243 " width="553" height="141" />
 
 1번째 조인 : Times200 (메모리) &lt;-&gt; Sales200
 
-2번째 조인 : products200(메모리) &lt;-&gt; (times200/sales200)
+2번째 조인 : products200(메모리) &lt;-&gt; (times200/sales200)  
 
-  
+* 위에 있는게 메모리에 올라간다
 
-> 위에 있는게 메모리에 올라간다
->
->  
 
 Pb 66. 해쉬 조인순서를 아래와 같이 만드시오
 
-> <img src="tuning_image/media/image22.png" alt="Oper a bon _P&gt;Ject Name SELECT STATEMENT optimizer Mode HASH GROUP BY HASH JOIN HASH JOIN TABLE ACCESS FULL TABLE ACCESS FULL TABLE ACCESS FULL scon.TIMES200 scon.SALES200 SCOTT PRODUCTS200 875K 875K B ytes 1M 1M 1M 47 M 29 M Cost 4138 4138 4137 1267 1243 " width="574" height="154" />
+<img src="tuning_image/media/image22.png" alt="Oper a bon _P&gt;Ject Name SELECT STATEMENT optimizer Mode HASH GROUP BY HASH JOIN HASH JOIN TABLE ACCESS FULL TABLE ACCESS FULL TABLE ACCESS FULL scon.TIMES200 scon.SALES200 SCOTT PRODUCTS200 875K 875K B ytes 1M 1M 1M 47 M 29 M Cost 4138 4138 4137 1267 1243 " width="574" height="154" />
 
  
 
     SELECT /*+ leading(t s p) use_hash(s) use_hash(p) no_swap_join_inputs(p) */
     p.prod_name, t.calendar_year,
-    SUM(s.amount\_sold)
+    SUM(s.amount_sold)
     FROM sales200 s, times200 t, products200 p
-    WHERE s.time\_id = t.time\_id
-    AND s.prod\_id = p.prod\_id
-    AND t.calendar\_year IN (2000,2001)
-    AND p.prod\_name LIKE 'Deluxe%'
-    GROUP BY p.prod\_name, t.calendar\_year;
+    WHERE s.time_id = t.time_id
+    AND s.prod_id = p.prod_id
+    AND t.calendar_year IN (2000,2001)
+    AND p.prod_name LIKE 'Deluxe%'
+    GROUP BY p.prod_name, t.calendar_year;
 
 해쉬조인 사용시 힌트
 --------------------
 
-1.  Use\_hash(테이블명) : 해쉬조인
-
-2.  Swap\_join\_inputs : 해쉬테이블을 선정할때 사용하는 힌트
-
-3.  No\_swap\_join\_inputs : prob 테이블을 선정할때 사용하는 힌트
+ 1.  Use_hash(테이블명) : 해쉬조인
+ 2.  Swap_join_inputs : 해쉬테이블을 선정할때 사용하는 힌트
+ 3.  No_swap_join_inputs : prob 테이블을 선정할때 사용하는 힌트
 
 
 
 ### 해쉬테이블과 prob 테이블
->
->
->
->  1.  해쉬 테이블 : 메모리로 올라가는 테이블
->
->  2.  탐색 테이블 : 디스크에서 메모리에 있는 해쉬 테이블과 >조인하는 테이블
 
-    SELECT \*+ leading(d e) use_hash(e) */
+  1.  해쉬 테이블 : 메모리로 올라가는 테이블
+
+  2.  탐색 테이블 : 디스크에서 메모리에 있는 해쉬 테이블과 >조인하는 테이블
+
+    SELECT *+ leading(d e) use_hash(e) */
     e.ename,d.loc
     FROM EMP e, DEPT d
     WHERE e.deptno=d.deptno;
 
 *위의 경우 d가 해쉬테이블이 된다*
 
-> - 테이블이 2개면 leading 힌트만으로도 해쉬 테이블과 탐색 테이블을 선정할 수 있다.
-> - 테이블이 3개면 leading 힌트만으로도 해쉬 테이블과 탐색 테이블을 선정하기가 어려워진다.
-> - 그래서 필요한 힌트가 swap\_join\_inputs와 no\_swap\_inputs 이다
+ - 테이블이 2개면 leading 힌트만으로도 해쉬 테이블과 탐색 테이블을 선정할 수 있다.
+ - 테이블이 3개면 leading 힌트만으로도 해쉬 테이블과 탐색 테이블을 선정하기가 어려워진다.
+ - 그래서 필요한 힌트가 swap_join_inputs와 no_swap_inputs 이다
+
+
 
 
 **Pb 67. 아래와 같이 계획되게 만드시오**
@@ -665,7 +620,7 @@ Pb 66. 해쉬 조인순서를 아래와 같이 만드시오
 
 Before)
 
-    SELECT /\*+ leading(d e b) use\_hash(e) use\_hash(b)\*/
+    SELECT /*+ leading(d e b) use_hash(e) use_hash(b)*/
     e.ename, d.loc
     FROM EMP e, DEPT d, BONUS b
     WHERE e.deptno=d.deptno
@@ -673,7 +628,7 @@ Before)
 
 After)
 
-    SELECT /\*+ leading(d e b) use\_hash(e) use\_hash(b) swap\_join\_inputs(b)\*/
+    SELECT /*+ leading(d e b) use_hash(e) use_hash(b) swap_join_inputs(b)*/
     e.ename, d.loc
     FROM EMP e, DEPT d, BONUS b
     WHERE e.deptno=d.deptno
@@ -683,7 +638,7 @@ After)
 
 **Pb 68. 아래와 같이 실행계획이 나오게 하시오**
 
-    SELECT /\*+ leading(b e d) use\_hash(b) use\_hash(e) swap\_join\_inputs(d)\*/
+    SELECT /*+ leading(b e d) use_hash(b) use_hash(e) swap_join_inputs(d)*/
     e.ename, d.loc
     FROM EMP e, DEPT d, BONUS b
     WHERE e.deptno=d.deptno
@@ -846,8 +801,6 @@ Ex)  이름과 부서위치를 출력하는데 해쉬조인으로 수행되게 �
 	SELECT /*+ leading (d e) use_hash(e) */ e.ename,d.loc
 	FROM EMP e, DEPT d
 	WHERE e.deptno=d.deptno;
-
-
 
 pb 81. 아래의 HASH 조인 문장의 full table scan이 병렬로 처리 되게 하시오. 
 
