@@ -84,16 +84,16 @@ Pb 44. 아래의 SQL의 조인순서가 어떻게 되겠는가?
 
  
 
-# 조인 튜닝시에 가장 중요한 2가지
+## 조인 튜닝시에 가장 중요한 2가지
 
 
 
 
-## 조인순서
+### 조인순서
 -   Ordered : from 절에서 기술한 테이블 순서데로 조인
 -   Leading : leading 힌트 안에쓴 테이블 순서대로 조인
 
-## 조인 방법
+### 조인 방법
 -   Use\_nl : nested loop 조인으로 유도
 -   Use\_hash : hash 조인으로 유도
 -   Use\_merge : sort merge 조인으로 조인해라
@@ -175,6 +175,7 @@ Pb 47. 아래의 조인 SQL 을 튜닝하시오
 
 Pb 48. 아래의 조인 SQL에 적절한 힌트를 주시오
 
+    Before)
     SELECT e.ename, e.sal, d.loc
     FROM DEPT d, EMP e
     WHERE e.deptno = d.deptno
@@ -188,237 +189,193 @@ Pb 48. 아래의 조인 SQL에 적절한 힌트를 주시오
     AND e.job = 'SALESMAN'
     AND d.loc = 'CHICAGO';
 
-세일즈맨의 데이타는 job 테이블에 4개
-CHCAGO는 dept 테이블에 한개
-그러므로 dept table에 먼저 접근
+* 세일즈맨의 데이타는 job 테이블에 4개, CHCAGO는 dept 테이블에 한개 그러므로 dept table에 먼저 접근
+* **leading (a b) : a에서 부터 조인한다는 뜻**
+* Nested join은 대량의 data 처리시 부적합할수 있다 왜냐하면 후행에서 join 된 테이블의 select 절에 컬럼에 index가 걸려있지 않다면 random access시 문제가 발생할수 있기 때문이다.
 
-**leading (a b) : a에서 부터 조인한다는 뜻**
-
-Nested join은 대량의 data 처리시 부적합할수 있다 왜냐하면 후행에서 join 된 테이블의 select 절에 컬럼에 index가 걸려있지 않다면 random access시 문제가 발생할수 있기 때문이다.
 
 
 Pb 49. SK 텔레콤 통신사인 학생들의 이름과 주소, 나이, 통신사, 통신사 월 금액을 출력
 
-> (emp2와 telecom\_price 조인)
+(emp2와 telecom\_price 조인) 
 
- 
+``` 
+SELECT /* + leading (t e) use_nl(e)*/ename,address, t_price
+FROM EMP2 e , TELECOM_PRICE t
+WHERE e.telecom=t.telecom
+and e.telecom='sk';
+```
 
- 
 
-> SELECT /\* + leading (t e) use\_nl(e)\*/ename,address, t\_price
->
-> FROM EMP2 e , TELECOM\_PRICE t
->
-> WHERE e.telecom=t.telecom
->
-> and e.telecom='sk';
->
->  
-
- 
-
->  
 
 Pb 50. Price 테이블과 Market\_code를 조인해서 a\_name, a\_price, m\_type\_name을 출력 하시오
 
-> SELECT p.a\_name,p.a\_price, m.m\_type\_name
->
-> FROM PRICE p,market\_code m
->
-> WHERE p.m\_type\_code=m.m\_type\_code;
->
-> <img src="tuning_image/media/image11.png" alt="Ⅰ A NAME HH 추(2 5N3kg) 무(세쳑무) uh(1 5kg2) 주(100C) 오대(다다)l) 호박(민큐베口l터] 쇠고기(한무2등급 A PRICE M TYPE NAME 2000 전툫시장 6000 전툫시장 1000 전툫시장 국500 전 톻시장 0 전툫시장 0 전툫시장 0 전툫시장 18000 전 톻시장 " width="300" height="166" />
->
->  
->
->  
->
-> SELECT /\* leading (m p) use\_nl(p) \*/p.a\_name,p.a\_price, m.m\_type\_name
->
-> FROM PRICE p,market\_code m
->
-> WHERE p.m\_type\_code=m.m\_type\_code;
->
->  
->
-> <img src="tuning_image/media/image12.png" alt="FRC•I market_code; SELECT PRICE; SELECT - 9517 / leading (m p) SELECT p.a name, p.a_price, m.m_type_name PRICE p , market_code m WHERE m.m_TYPE CODE = p.m_TYPE CODE; recursive calls db block gets consistent gets FRC•I market_code; SELECT SELECT PRICE; - - 9517 / leading (p m) SELECT p.a name, p.a_price, m.m_type_name PRICE p , market_code m WHERE = p.m_TYPE CODE;I recursive calls db block gets consistent gets " width="282" height="447" />
+```
+SELECT p.a_name,p.a_price, m.m_type_name
+FROM PRICE p,market_code m
+WHERE p.m_type_code=m.m_type_code;
+```
+
+<img src="tuning_image/media/image11.png" alt="Ⅰ A NAME HH 추(2 5N3kg) 무(세쳑무) uh(1 5kg2) 주(100C) 오대(다다)l) 호박(민큐베口l터] 쇠고기(한무2등급 A PRICE M TYPE NAME 2000 전툫시장 6000 전툫시장 1000 전툫시장 국500 전 톻시장 0 전툫시장 0 전툫시장 0 전툫시장 18000 전 톻시장 " width="300" height="166" />
+```
+ SELECT /* leading (m p) use_nl(p) */p.a_name,p.a_price, m.m_type_name
+ FROM PRICE p,market_code m
+ WHERE p.m_type_code=m.m_type_code;
+```
+
+  
+
+ <img src="tuning_image/media/image12.png" alt="FRC•I market_code; SELECT PRICE; SELECT - 9517 / leading (m p) SELECT p.a name, p.a_price, m.m_type_name PRICE p , market_code m WHERE m.m_TYPE CODE = p.m_TYPE CODE; recursive calls db block gets consistent gets FRC•I market_code; SELECT SELECT PRICE; - - 9517 / leading (p m) SELECT p.a name, p.a_price, m.m_type_name PRICE p , market_code m WHERE = p.m_TYPE CODE;I recursive calls db block gets consistent gets " width="282" height="447" />
+
+
+
+테이블 생성
+
+```
+CREATE TABLE market_code
+AS
+SELECT DISTINCT m_type_code, m_type_name
+FROM PRICE;
+
+CREATE TABLE gu_code
+AS
+SELECT DISTINCT m_gu_code, m_gu_name
+FROM PRICE;
 
  
+ALTER TABLE PRICE
+DROP COLUMN m_gu_name;
 
-> Whole
->
-> CREATE TABLE market\_code
->
-> AS
->
-> SELECT DISTINCT m\_type\_code, m\_type\_name
->
-> FROM PRICE;
->
->  
->
->  
->
-> CREATE TABLE gu\_code
->
-> AS
->
-> SELECT DISTINCT m\_gu\_code, m\_gu\_name
->
-> FROM PRICE;
->
->  
->
-> ALTER TABLE PRICE
->
-> DROP COLUMN m\_gu\_name;
->
->  
->
-> ALTER TABLE PRICE
->
-> DROP COLUMN m\_type\_name;
->
->  
->
-> SELECT p.a\_name,p.a\_price, m.m\_type\_name
->
-> FROM PRICE p,market\_code m
->
-> WHERE p.m\_type\_code=m.m\_type\_code;
->
->  
->
-> SELECT /\*+ leading(p m) use\_nl(m) \*/p.a\_name,p.a\_price, m.m\_type\_name
->
-> FROM PRICE p,market\_code m
->
-> WHERE p.m\_type\_code=m.m\_type\_code;
->
->  
->
->  
+
+ALTER TABLE PRICE
+DROP COLUMN m_type_name;
+
+```
+
+
+```
+before)
+SELECT p.a_name,p.a_price, m.m_type_name
+FROM PRICE p,market_code m
+WHERE p.m_type_code=m.m_type_code;
+
+after)
+SELECT /*+ leading(p m) use_nl(m) */p.a_name,p.a_price, m.m_type_name
+FROM PRICE p,market_code m
+WHERE p.m_type_code=m.m_type_code; 
+```
+
+
 
 Pb 51. 이름이 Scott 인 사원의 이름과 월급과 부서위치를 출력하는데 적절한 조인 순서와 조인방법을 힌트를 주어서 작성하시오.
 
-> SELECT /\*+ leading (e d) use\_nl(d)\*/ e.ename, e.sal, d.loc
->
-> FROM EMP e, DEPT d
->
-> WHERE e.deptno=d.deptno AND e.ename='SCOTT';
->
->  
->
-> // e먼저 why? 1건이니까
+```
+SELECT /*+ leading (e d) use_nl(d)*/ e.ename, e.sal, d.loc
+FROM EMP e, DEPT d
+WHERE e.deptno=d.deptno AND e.ename='SCOTT';
+```
 
- 
+* EMP 가 한건이므로 먼저 조인
+
+
 
 Pb 52. Price 테이블과 gu\_code를 조인 해서 a\_name, a\_price, m\_gu\_name을 출력하는데 적절한 조인 힌트를 줘서 작성하시오.
 
-> SELECT /\*+ leading (g p) use\_nl(p)\*/p.a\_name,p.a\_price,g.m\_gu\_name
->
-> FROM PRICE p, gu\_code g
->
-> WHERE p.m\_gu\_code=g.m\_gu\_code;
->
->  
+```
+SELECT /*+ leading (g p) use_nl(p)*/p.a_name,p.a_price,g.m_gu_name
+FROM PRICE p, gu_code g
+WHERE p.m_gu_code=g.m_gu_code; 
+```
+
+
 
 Pb 53. 위의 결과에서 이마트 역삼점만 출력
 
-> SELECT /\*+ leading (g p) use\_nl(p)\*/p.a\_name,p.a\_price,g.m\_gu\_name
->
-> FROM PRICE p, gu\_code g
->
-> WHERE p.m\_gu\_code=g.m\_gu\_code AND p.m\_name LIKE '이마트%역삼%';
->
->  
-
-Pb 54. (3개의 테이블 조인) 이름, 월급, 부서위치, 급여등급(grade)를 출력
-
-> SELECT e.ename,e.sal,d.loc
->
-> FROM EMP e,DEPT d,SALGRADE g
->
-> WHERE e.dept(3개의 테이블 조인) 이름, 월급, 부서위치, 급여등급(grade)를 출력하는데 적절한 조인 순서와 조인 방법의 힌트를 주고 작성하시오. no=d.deptno AND e.sal BETWEEN g.losal AND g.hisal;
+```
+SELECT /*+ leading (g p) use_nl(p)*/p.a_name,p.a_price,g.m_gu_name
+FROM PRICE p, gu_code g
+WHERE p.m_gu_code=g.m_gu_code AND p.m_name LIKE '이마트%역삼%';
+```
 
  
 
+Pb 54. (3개의 테이블 조인) 이름, 월급, 부서위치, 급여등급(grade)를 출력
+
+```
+SELECT e.ename,e.sal,d.loc
+FROM EMP e,DEPT d,SALGRADE g
+WHERE e.deptno=d.deptno AND e.sal BETWEEN g.losal AND g.hisal;
+```
+
+
+
 Pb 55. (3개의 테이블 조인) 이름, 월급, 부서위치, 급여등급(grade)를 출력하는데 적절한 조인 순서와 조인 방법의 힌트를 주고 작성하시오.
 
-> SELECT /\*+ leading (g d e) use\_nl(d e)\*/ e.ename,e.sal,d.loc
->
-> FROM EMP e,DEPT d,SALGRADE g
->
-> WHERE e.deptno=d.deptno AND e.sal BETWEEN g.losal AND g.hisal;
->
->  
+```
+SELECT /*+ leading (g d e) use_nl(d e)*/ e.ename,e.sal,d.loc
+FROM EMP e,DEPT d,SALGRADE g
+WHERE e.deptno=d.deptno AND e.sal BETWEEN g.losal AND g.hisal;
+```
+
+
 
 Pb 56. (3개 테이블 조인) Price 테이블, gu\_code테이블, market\_code테이블 3개의 테이블을 조인후 a\_name, a\_prcie, m\_gu\_name, m\_type\_name 출력하는데 적절한 조인 순서와 힌트를 주고 실행하시오.
 
-> SELECT /\*+ leading(m g p) use\_nl(g) use\_nl(p) \*/ p.a\_name,p.a\_price,g.m\_gu\_name,m.m\_type\_name
->
-> FROM PRICE p, gu\_code g, market\_code m
->
-> WHERE p.m\_gu\_code=g.m\_gu\_code AND p.m\_type\_code=m.m\_type\_code;
->
-> //이 조인순서는 정상적이지 않지만 가장 적은 consistent 블럭 생성
->
->  
->
-> SELECT /\*+ leading(m p g) use\_nl(p) use\_nl(g) \*/ p.a\_name,p.a\_price,g.m\_gu\_name,m.m\_type\_name
->
-> FROM PRICE p, gu\_code g, market\_code m
->
-> WHERE p.m\_gu\_code=g.m\_gu\_code AND p.m\_type\_code=m.m\_type\_code;
->
->  
+```
+SELECT /*+ leading(m g p) use_nl(g) use_nl(p) */ p.a_name,p.a_price,g.m_gu_name,m.m_type_name
+FROM PRICE p, gu_code g, market_code m
+WHERE p.m_gu_code=g.m_gu_code AND p.m_type_code=m.m_type_code;
+```
+
+
+
+**이 조인순서는 정상적이지 않지만 가장 적은 consistent 블럭 생성**
+
+```
+SELECT /*+ leading(m p g) use_nl(p) use_nl(g) */ p.a_name,p.a_price,g.m_gu_name,m.m_type_name
+FROM PRICE p, gu_code g, market_code m
+WHERE p.m_gu_code=g.m_gu_code AND p.m_type_code=m.m_type_code;
+```
+
+
 
 Pb 57. 급여등급이 2등급이 사원들의 이름과 월급과 부서위치와 급여등급을 출력하는데 적절한 조인순서와 조인방법을 써서 구현하시오
 
-> SELECT /\*+ leading(g d e) use\_nl(d) use\_nl(e)\*/e.ename,e.sal,d.loc,g.grade
->
-> FROM EMP e,DEPT d,SALGRADE g
->
-> WHERE e.deptno=d.deptno AND e.sal BETWEEN g.losal AND g.hisal AND g.grade=2;
->
->  
->
->  
+```
+SELECT /*+ leading(g d e) use_nl(d) use_nl(e)*/e.ename,e.sal,d.loc,g.grade
+FROM EMP e,DEPT d,SALGRADE g
+WHERE e.deptno=d.deptno AND e.sal BETWEEN g.losal AND g.hisal AND g.grade=2;
+```
+
+ 
 
 Pb 58. 아래의 SQL을 튜닝하시오
 
->  
->
-> Before)
->
-> SELECT /\*+ leading(t s) use\_nl(s) \*/
->
-> t.calendar\_year, SUM(s.amount\_sold)
->
-> FROM sales200 s, times200 t
->
-> WHERE s.time\_id = t.time\_id
->
-> AND t.week\_ending\_day\_id=1581
->
-> GROUP BY t.calendar\_year;
->
->  
->
-> After)
->
-> SELECT /\*+ leading(s t) use\_nl(t) \*/
->
-> t.calendar\_year, SUM(s.amount\_sold)
->
-> FROM sales200 s, times200 t
->
-> WHERE s.time\_id = t.time\_id
->
-> AND t.week\_ending\_day\_id=1581
->
-> GROUP BY t.calendar\_year;
->
+```
+Before)
+SELECT /*+ leading(t s) use_nl(s) */
+t.calendar_year, SUM(s.amount_sold)
+FROM sales200 s, times200 t
+WHERE s.time_id = t.time_id
+AND t.week_ending_day_id=1581
+GROUP BY t.calendar_year;
+```
+
+
+
+```
+After)
+SELECT /*+ leading(s t) use_nl(t) */
+t.calendar_year, SUM(s.amount_sold)
+FROM sales200 s, times200 t
+WHERE s.time_id = t.time_id
+AND t.week_ending_day_id=1581
+GROUP BY t.calendar_year;
+```
+
+
+
+
 
 Pb 59. 아래의 SQL을 튜닝하시오
 
@@ -597,7 +554,7 @@ Pb 63. 아래의 SQL을 해쉬조인으로 수행하시오
 
   
 
-Hash 조인의 원리
+Hash Join
 ----------------
 
     SELECT /*+ leading(d e) use_hash(e)*/ E.NAME, d.loc
@@ -889,6 +846,8 @@ Ex)  이름과 부서위치를 출력하는데 해쉬조인으로 수행되게 �
 	SELECT /*+ leading (d e) use_hash(e) */ e.ename,d.loc
 	FROM EMP e, DEPT d
 	WHERE e.deptno=d.deptno;
+
+
 
 pb 81. 아래의 HASH 조인 문장의 full table scan이 병렬로 처리 되게 하시오. 
 

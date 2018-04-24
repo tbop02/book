@@ -31,7 +31,7 @@ SQL을 가장 효율적이고 빠르게 수행할 수 있는 최적의 처리경
 
 EX) 이름이 EN 또는 IN을 포함하고 있는 사원들의 이름과 월급과 직업을 출력하시오
 
-	SELECT /*+ leading(e3 e1) use_nal(e1)*/ e1.ename, e1.address, e1.age
+	SELECT /*+ leading(e3 e1) use_nl(e1)*/ e1.ename, e1.address, e1.age
 	FROM EMP2 e1,
 	(
 	SELECT  /*+ index_ffs(e emp2_address) */ROWID rr
@@ -124,7 +124,6 @@ Pb 85. 아래의 SQL의 실행계획을 dept가 먼저 드라이빙 되면서 �
         select /* swap_join_inputs(d) */ deptno
         from dept d
         where loc='DALLAS')
-
 
 
 
