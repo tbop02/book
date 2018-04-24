@@ -67,7 +67,7 @@ Pb 82.  (서브 쿼리의 쿼리 변환) DALLAS에 있는 부서번호에서 근
      FROM DEPT
      WHERE loc='DALLAS');
 
-![1524555593300](subquery_tunning_image\1524555593300.png)
+![1524555593300](subquery_tunning_image/1524555593300.png)
 
 
 
@@ -83,7 +83,7 @@ Pb 83. 위의  SQL의 = 을 in 으로 바꿔서 수행해보시오
 	 FROM DEPT
 	 WHERE loc='DALLAS');
 
-![1524555244334](tuning_image\media\1524555244334.png)
+![1524555244334](tuning_image/media/1524555244334.png)
 
 **SEMI Join 을 실행했다 (절반의 조인을 실행)**
 
@@ -101,7 +101,7 @@ Pb 84. 세미조인하지 말고 서브쿼리로 수행하라고 힌트를 주�
 
 **/*+ no_unnest*/  강하게 감싸서 서브쿼리로 실행하라는 의미**
 
-![1524555800930](subquery_tunning_image\1524555800930.png)
+![1524555800930](subquery_tunning_image/1524555800930.png)
 
 *위의 결과에서 optimizer가 자동으로 semi join을 하지 않을것을 알 수 있다.*
 
@@ -114,7 +114,7 @@ Pb 85. 아래의 SQL의 실행계획을 dept가 먼저 드라이빙 되면서 �
 	 WHERE deptno IN (SELECT deptno 
 	 FROM DEPT d where loc='DALLAS');
 
-![1524556621091](subquery_tunning_image\1524556621091.png)
+![1524556621091](subquery_tunning_image/1524556621091.png)
 
  
 
