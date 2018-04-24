@@ -67,7 +67,7 @@ Pb 82.  (서브 쿼리의 쿼리 변환) DALLAS에 있는 부서번호에서 근
      FROM DEPT
      WHERE loc='DALLAS');
 
-![1524555593300](subquery_tunning_image\1524555593300.png)
+![1524555593300](subquery_tunning_image/1524555593300.png)
 
 
 
